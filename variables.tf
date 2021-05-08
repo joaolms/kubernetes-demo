@@ -1,17 +1,18 @@
 variable "location" {
   description = "Região do Azure"
   type        = string
-  default       = "brazilsouth"
+  default     = "eastus2"
 }
 
-variable "subnet_names" {
-  description   = "Lista de nomes para cada subnet e deve conter a mesma quantidade de elementos da variável subnet_prefixes."
-  type          = list(string)
-  default       = [ "snet-pub", "snet-priv" ]
+variable "common_tags" {
+  description = "Tags que serão aplicadas à todos os recursos da demo"
+  type        = map(string)
+  default     = {
+    plataforma = "kubernetes-demo"
+  }
 }
 
-variable "subnet_prefixes" {
-  description   = "Lista de prefixos de subnet que serão criados, deve conter a mesma quantidade de elementos da variáviel subnet_names."
-  type          = list(string)
-  default       = [ "10.100.0.0/23", "10.100.2.0/23" ]
+variable "ssh_pubkey" {
+  description = "Chave pública para conexão SSH"
+  type        = string
 }
