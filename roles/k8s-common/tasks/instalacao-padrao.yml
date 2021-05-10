@@ -64,12 +64,12 @@
     name: ubuntu
     group: docker
 
-# - name: Configurar Cgroup driver para o systemd
-#   copy:
-#     remote_src: no
-#     src: daemon.json
-#     dest: /etc/docker/
-#   notify: Docker restart
+- name: Configurar Cgroup driver para o systemd
+  copy:
+    remote_src: no
+    src: daemon.json
+    dest: /etc/docker/
+  notify: Docker restart
 
 - name: Habilitar serviço docker
   systemd:
