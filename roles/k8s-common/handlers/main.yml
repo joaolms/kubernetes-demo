@@ -1,0 +1,10 @@
+- name: Kubelet restart
+  systemd:
+    name: kubelet
+    state: restarted
+
+- name: Docker restart
+  systemd:
+    name: docker
+    daemon_reload: yes
+    state: restarted
