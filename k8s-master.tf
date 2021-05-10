@@ -24,17 +24,12 @@ resource "azurerm_network_interface" "k8s_master_nic" {
   tags = var.common_tags
 }
 
-# data "template_file" "jenkinsconfig" {
-#   template = file(var.jenkins_custom_data)
-# }
-
 resource "azurerm_linux_virtual_machine" "k8s_master_vm" {
   name                = "k8s-master"
   resource_group_name = azurerm_resource_group.kubernetes_demo_rg.name
   location            = var.location
   size                = "Standard_B2s"
   admin_username      = "ubuntu"
-  # custom_data         = base64encode(data.template_file.jenkinsconfig.rendered)
 
   network_interface_ids = [
     azurerm_network_interface.k8s_master_nic.id,

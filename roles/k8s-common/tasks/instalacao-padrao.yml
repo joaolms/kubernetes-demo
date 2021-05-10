@@ -1,0 +1,112 @@
+- name: Configurar Timezone
+  timezone:
+    name: America/Sao_Paulo
+
+- name: Remover a swap do arquivo /etc/fstab
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  with_items:
+    - swap
+    - none
+  register: swap
+
+- name: Desativar swap do sistema
+  when: swap is changed
+  command: swapoff -a
+
+- name: Ativar modulo do sistema necessário para o kubernetes
+  modprobe:
+    name: "{{ item.module }}"
+    state: present
+  loop:
+    - { module: br_netfilter }
+    - { module: ip_vs }
+    - { module: ip_vs-rr }
+    - { module: ip_vs_sh }
+    - { module: ip_vs_wrr }
+
+- name: Instando pacotes necessários
+  apt:
+    update_cache: yes
+    name: "{{ pacotes }}"
+    state: present
+  vars:
+    pacotes:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - gnupg-agent
+      - bash-completion
+      - software-properties-common
+
+- name: Verificar se já tem o docker instalado
+  stat:
+    path: /usr/bin/docker
+  register: docker_bin
+
+- name: Download script instalar-docker.sh
+  when: docker_bin.stat.exists == False
+  get_url:
+    url: https://get.docker.com
+    dest: /root/instalar-docker.sh
+    mode: "0700"
+  register: download_docker
+
+- name: Executar o script instalar-docker.sh
+  when: download_docker is changed
+  shell: /bin/bash /root/instalar-docker.sh
+
+- name: Adicionar usuário ubuntu para o grupo docker
+  user:
+    name: ubuntu
+    group: docker
+
+# - name: Configurar Cgroup driver para o systemd
+#   copy:
+#     remote_src: no
+#     src: daemon.json
+#     dest: /etc/docker/
+#   notify: Docker restart
+
+- name: Habilitar serviço docker
+  systemd:
+    name: docker
+    daemon_reload: no
+    state: started
+    enabled: yes
+
+- name: Adicionando a chave do apt para o Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    keyring: /etc/apt/trusted.gpg.d/k8s.gpg
+    state: present
+
+- name: Adicionando o repositório do Kubernetes
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: kubernetes
+
+- name: Instalar kubelet kubeadm e kubectl
+  apt: 
+    name: "{{ pacotes }}"
+    state: present
+    update_cache: yes
+  vars:
+    pacotes:
+      - kubelet 
+      - kubeadm 
+      - kubectl
+  notify: Kubelet restart
+
+- name: Verificar se o bash_completion já está configurado para o kubectl
+  stat:
+    path: /etc/bash_completion.d/kubectl
+  register: bash_completion_config_file
+
+- name: Configurar o bash-completion do kubectl para facilitar
+  when: bash_completion_config_file.stat.exists == False
+  shell: kubectl completion bash > /etc/bash_completion.d/kubectl

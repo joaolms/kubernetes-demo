@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+  remote_user: ubuntu
+
+  roles:
+  - k8s-common
+
+- hosts: master
+  become: yes
+  gather_facts: yes
+  remote_user: ubuntu
+
+  roles:
+  - k8s-master
+  

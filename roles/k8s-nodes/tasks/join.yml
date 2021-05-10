@@ -1,0 +1,7 @@
+- name: Gerar token com comando para join
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: debug
+  debug:
+    var: join_command
