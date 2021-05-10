@@ -15,3 +15,10 @@
   roles:
   - k8s-master
   
+- hosts: nodes
+  become: yes
+  gather_facts: yes
+  remote_user: ubuntu
+
+  roles:
+  - k8s-nodes
