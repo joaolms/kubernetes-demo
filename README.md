@@ -57,8 +57,9 @@ make inicializar-cluster
 ```
 
 ## TO-DO
-- Volume persistente ao cluster
+- Volume persistente
 - Ingress Controller
 - Deploy de uma aplicação de exemplo
 - Configurar Github Actions
 - Adicionar idempotência ao playbook de provisionamento do cluster
+- Adicionar um diagrama da infraestrutura para facilitar o entendimento do projeto
