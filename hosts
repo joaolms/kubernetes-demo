@@ -1,9 +1,9 @@
 [master]
-k8s-master ansible_host=40.70.214.236
+k8s-master ansible_host=52.247.15.53
 
 [nodes]
-k8s-node1 ansible_host=40.70.210.197
-k8s-node2 ansible_host=40.70.214.239
+k8s-node1 ansible_host=52.251.41.102
+k8s-node2 ansible_host=52.251.41.109
 
 [cluster:children]
 master

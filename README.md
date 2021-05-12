@@ -56,6 +56,72 @@ Adicione os IP's dos servidores ao arquivo ```hosts```, que é o arquivo de inve
 make inicializar-cluster
 ```
 
+## Kubernetes
+```bash
+kubectl get nodes
+kubectl get pods --all-namespaces -o wide
+```
+
+### Criar Namespace
+```bash
+kubectl create namespace k8s-demo
+```
+
+### Deploy Nginx
+nginx.yaml
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: k8s-demo
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 20
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: k8s-demo
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30007
+```
+```bash
+kubectl apply -f nginx.yml
+```
+
+Analisar o deploy
+```bash
+kubectl get all -n k8s-demo -o wide
+kubectl get services -n k8s-demo -o wide
+```
+
+Testar o acesso
+```bash
+sudo apt install httpie
+http :30007
+```
+
 ## TO-DO
 - Volume persistente
 - Ingress Controller
