@@ -15,4 +15,4 @@
 #   delegate_to: 127.0.0.1
 
 - name: Adicionar o nós ao cluster
-  shell: "{{ join_command.stdout_lines[0] }}"
+  command: "{{ join_command.stdout_lines[0] }}"
