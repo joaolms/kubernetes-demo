@@ -57,7 +57,7 @@
 
 - name: Executar o script instalar-docker.sh
   when: download_docker is changed
-  shell: /bin/bash /root/instalar-docker.sh
+  command: /bin/bash /root/instalar-docker.sh
 
 - name: Adicionar usuário ubuntu para o grupo docker
   user:
@@ -91,14 +91,14 @@
     filename: kubernetes
 
 - name: Instalar kubelet kubeadm e kubectl
-  apt: 
+  apt:
     name: "{{ pacotes }}"
     state: present
     update_cache: yes
   vars:
     pacotes:
-      - kubelet 
-      - kubeadm 
+      - kubelet
+      - kubeadm
       - kubectl
   notify: Kubelet restart
 
