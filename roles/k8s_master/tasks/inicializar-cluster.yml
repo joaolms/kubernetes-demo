@@ -20,6 +20,7 @@
     path: "{{ item.diretorio }}"
     owner: "{{ item.usuario }}"
     group: "{{ item.usuario }}"
+    mode: 0775
   with_items:
     - { usuario: "ubuntu", diretorio: "/home/ubuntu/.kube" }
     - { usuario: "root", diretorio: "/root/.kube" }
@@ -31,6 +32,7 @@
     dest: "{{ item.diretorio }}/.kube/config"
     owner: "{{ item.usuario }}"
     group: "{{ item.usuario }}"
+    mode: 0664
   with_items:
     - { usuario: "ubuntu", diretorio: "/home/ubuntu" }
     - { usuario: "root", diretorio: "/root" }
