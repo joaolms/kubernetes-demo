@@ -17,4 +17,4 @@ jobs:
           ls -l ${{ github.workspace }}
       
       - name: echo
-        run: Status do job: ${{ job.status }}.
+        run: echo "Status do job: ${{ job.status }}."
