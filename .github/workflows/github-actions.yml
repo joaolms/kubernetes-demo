@@ -1,9 +1,6 @@
 name: Kubernetes Demo - Azure
 on:
   - push
-  
-  workflow_dispath:
-
 
 jobs:
 
