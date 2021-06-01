@@ -12,10 +12,4 @@ jobs:
     
       - name: Listar diretorio
         run: |
-          pwd
-          ls
-          ls -l ${{ github.workspace }}
-      
-      - name: echo
-        run: |
-          echo "Status do job: ${{ job.status }}."
+          ansible-lint -v k8s-playbook.yml
