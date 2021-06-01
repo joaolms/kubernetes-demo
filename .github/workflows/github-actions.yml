@@ -1,0 +1,20 @@
+name: Kubernetes Demo - Azure
+on: [push]
+
+jobs:
+
+  Lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+    
+      - name: Listar diretorio
+        run: |
+          pwd
+          ls
+          ls -l ${{ github.workspace }}
+      
+      - name: echo
+        run: Status do job: ${{ job.status }}.
