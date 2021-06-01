@@ -1,15 +1,19 @@
 name: Kubernetes Demo - Azure
-on: [push]
+on:
+  - push
+  
+  workflow_dispath:
+
 
 jobs:
 
-  Lint:
+  Testes:
     runs-on: ubuntu-latest
     
     steps:
       - name: Check out
         uses: actions/checkout@v2
     
-      - name: Listar diretorio
+      - name: Ansible - Análise Estática
         run: |
           ansible-lint -v k8s-playbook.yml
