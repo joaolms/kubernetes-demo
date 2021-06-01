@@ -14,4 +14,4 @@ jobs:
       - name: Ansible - Análise Estática
         uses: ansible/ansible-lint-action@v4.1.0
         with:
-          targets: "./"
+          targets: "./k8s-playbook.yml"
