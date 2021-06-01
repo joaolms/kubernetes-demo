@@ -12,7 +12,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
     
-      - name: Ansible - Análise Estática
+      - name: Ansible lint
         uses: ansible/ansible-lint-action@master
         with:
-          targets: ""
+          targets: "k8s-playbook.yml"
