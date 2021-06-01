@@ -1,10 +1,11 @@
 name: Kubernetes Demo - Azure
 on:
   - push
+  - pull_request
 
 jobs:
-
-  Testes:
+  testes:
+    
     runs-on: ubuntu-latest
     
     steps:
@@ -12,6 +13,6 @@ jobs:
         uses: actions/checkout@v2
     
       - name: Ansible - Análise Estática
-        uses: ansible/ansible-lint-action@v4.1.0
+        uses: ansible/ansible-lint-action@master
         with:
-          targets: "./k8s-playbook.yml"
+          targets: ""
