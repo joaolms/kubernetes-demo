@@ -3,10 +3,12 @@
   delegate_to: k8s-master
   register: join_command
   run_once: true
+  changed_when: false
 
 - name: Adicionar o nós ao cluster
-  register: joing_cluster_result
   command: "{{ join_command.stdout_lines[0] }}"
+  register: join_cluster_result
+  changed_when: join_cluster_result|search('This node has joined the cluster')
 
 - name: Debug join_command
   debug:
