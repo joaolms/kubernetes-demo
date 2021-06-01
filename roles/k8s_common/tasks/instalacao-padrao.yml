@@ -69,6 +69,7 @@
     remote_src: no
     src: daemon.json
     dest: /etc/docker/
+    mode: 0664
   notify: Docker restart
 
 - name: Habilitar serviço docker

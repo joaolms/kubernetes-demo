@@ -5,7 +5,12 @@
 
 - name: Inicializar o cluster
   when: not cluster_info.stat.exists
-  command: kubeadm init --apiserver-advertise-address="10.100.0.4" --apiserver-cert-extra-sans="10.100.0.4" --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+  command: |
+    kubeadm init \
+      --apiserver-advertise-address="10.100.0.4" \
+      --apiserver-cert-extra-sans="10.100.0.4" \
+      --node-name k8s-master \
+      --pod-network-cidr=192.168.0.0/16
   register: kubeadm_init
   changed_when: '"initialized successfully" in kubeadm_init.stdout'
 
