@@ -1,0 +1,37 @@
+ok: [k8s-node2] => {
+    "join_cluster_result": {
+        "changed": true,
+        "cmd": [
+            "kubeadm",
+            "join",
+            "10.100.0.4:6443",
+            "--token",
+            "a3qvqn.kttqoopcs1deqrdj",
+            "--discovery-token-ca-cert-hash",
+            "sha256:46b149415713beb4d6721487d9b52de887ff871b88ae8fb505644cb9d33e2d60"
+        ],
+        "delta": "0:00:14.653462",
+        "end": "2021-06-02 07:53:30.937105",
+        "failed": false,
+        "rc": 0,
+        "start": "2021-06-02 07:53:16.283643",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "[preflight] Running pre-flight checks\n[preflight] Reading configuration from the cluster...\n[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'\n[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"\n[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"\n[kubelet-start] Starting the kubelet\n[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...\n\nThis node has joined the cluster:\n* Certificate signing request was sent to apiserver and a response was received.\n* The Kubelet was informed of the new secure connection details.\n\nRun 'kubectl get nodes' on the control-plane to see this node join the cluster.",
+        "stdout_lines": [
+            "[preflight] Running pre-flight checks",
+            "[preflight] Reading configuration from the cluster...",
+            "[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'",
+            "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+            "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+            "[kubelet-start] Starting the kubelet",
+            "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...",
+            "",
+            "This node has joined the cluster:",
+            "* Certificate signing request was sent to apiserver and a response was received.",
+            "* The Kubelet was informed of the new secure connection details.",
+            "",
+            "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+        ]
+    }
+}

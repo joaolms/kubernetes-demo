@@ -48,7 +48,7 @@
   register: docker_bin
 
 - name: Download script instalar-docker.sh
-  when: docker_bin.stat.exists == False
+  when: not docker_bin.stat.exists
   get_url:
     url: https://get.docker.com
     dest: /root/instalar-docker.sh
@@ -69,6 +69,7 @@
     remote_src: no
     src: daemon.json
     dest: /etc/docker/
+    mode: 0664
   notify: Docker restart
 
 - name: Habilitar serviço docker
@@ -108,5 +109,5 @@
   register: bash_completion_config_file
 
 - name: Configurar o bash-completion do kubectl para facilitar
-  when: bash_completion_config_file.stat.exists == False
+  when: not bash_completion_config_file.stat.exists
   shell: kubectl completion bash > /etc/bash_completion.d/kubectl
