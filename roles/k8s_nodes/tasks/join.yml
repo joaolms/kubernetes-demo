@@ -1,4 +1,10 @@
+- name: Verificar se o cluster já foi inicializado
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: node_already
+
 - name: Gerar token com comando para join
+  when: not node_already.stat.exists
   command: kubeadm token create --print-join-command
   delegate_to: k8s-master
   register: join_command
@@ -6,14 +12,7 @@
   changed_when: false
 
 - name: Adicionar o nós ao cluster
+  when: not node_already.stat.exists
   command: "{{ join_command.stdout_lines[0] }}"
   register: join_cluster_result
-  changed_when: join_cluster_result|search('This node has joined the cluster')
-
-- name: Debug join_command
-  debug:
-    var: join_command
-
-- name: Debug join_cluster_result
-  debug:
-    var: join_cluster_reult
+  changed_when: join_cluster_result.stdout.find('This node has joined the cluster')
