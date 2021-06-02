@@ -14,3 +14,6 @@ tf-apply: ## Aplicar as modificações indicadas no plano
 
 inicializar-cluster: ## Executar o provisionamento do cluster com roles do Ansible
 	ansible-playbook -i hosts k8s-playbook.yml
+
+tf-destroy: ## Destruir o ambiente provisionado
+	terraform destroy --auto-approve

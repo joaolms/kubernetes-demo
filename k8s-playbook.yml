@@ -5,7 +5,7 @@
   remote_user: ubuntu
 
   roles:
-  - k8s-common
+  - k8s_common
 
 - hosts: master
   become: yes
@@ -13,7 +13,7 @@
   remote_user: ubuntu
 
   roles:
-  - k8s-master
+  - k8s_master
 
 - hosts: nodes
   become: yes
@@ -21,4 +21,4 @@
   remote_user: ubuntu
 
   roles:
-  - k8s-nodes
+  - k8s_nodes

@@ -1,4 +1,7 @@
 # Kubernetes
+
+[![Kubernetes Demo - Azure](https://github.com/joaolms/kubernetes-demo/actions/workflows/github-actions.yml/badge.svg)](https://github.com/joaolms/kubernetes-demo/actions/workflows/github-actions.yml)
+
 ## Descrição
 Construção de um cluster Kubernetes
 
