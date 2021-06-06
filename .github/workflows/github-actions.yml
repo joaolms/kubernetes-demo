@@ -6,6 +6,9 @@ jobs:
   testes:
     
     runs-on: ubuntu-latest
+
+    env:
+      SSH_PUBKEY = ${TF_VAR_SSH_PUBKEY}
     
     steps:
     - name: Check out
