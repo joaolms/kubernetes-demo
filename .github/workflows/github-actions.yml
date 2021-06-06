@@ -21,8 +21,8 @@ jobs:
         terraform -version
         docker --version
         ansible --version
-        packer -version      
-     
+        packer -version
+        ansible-lint --version
     # - name: Terraform validate
     #   run: make tf-validate
     
