@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TF_VAR_SSH_PUBKEY = ${SSH_PUBKEY}
+      TF_VAR_SSH_PUBKEY: ${SSH_PUBKEY}
     
     steps:
     - name: Check out
