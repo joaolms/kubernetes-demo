@@ -8,22 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Check out
-      uses: actions/checkout@v2
+    # - name: Check out
+    #   uses: actions/checkout@v2
   
-    - name: Ansible lint
-      uses: ansible/ansible-lint-action@master
-      with:
-        targets: "k8s-playbook.yml"
-  
-    - name: Terraform init
-      run: terraform init --upgrade=true
-    
+    # - name: Ansible lint
+    #   uses: ansible/ansible-lint-action@master
+    #   with:
+    #     targets: "k8s-playbook.yml"
+
+    - name: teste de comandos
+      run: |
+        whereis terraform
+        whereis docker
+        whereis ansible
+        whereis packer
+        whereis kubectl
+      if: ${{ always() }}
+      
+     
     - name: Terraform validate
-      run: terraform validate
+      run: make tf-validate
     
     - name: Terraform plan
-      run: terraform plan
+      run: make tf-plan
       env:
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
