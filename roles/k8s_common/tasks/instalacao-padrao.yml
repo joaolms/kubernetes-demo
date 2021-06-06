@@ -1,3 +1,4 @@
+---
 - name: Configurar Timezone
   timezone:
     name: America/Sao_Paulo
@@ -21,15 +22,15 @@
     name: "{{ item.module }}"
     state: present
   loop:
-    - { module: br_netfilter }
-    - { module: ip_vs }
-    - { module: ip_vs-rr }
-    - { module: ip_vs_sh }
-    - { module: ip_vs_wrr }
+    - {module: br_netfilter}
+    - {module: ip_vs}
+    - {module: ip_vs-rr}
+    - {module: ip_vs_sh}
+    - {module: ip_vs_wrr}
 
 - name: Instando pacotes necessários
   apt:
-    update_cache: yes
+    update_cache: true
     name: "{{ pacotes }}"
     state: present
   vars:
@@ -66,7 +67,7 @@
 
 - name: Configurar Cgroup driver para o systemd
   copy:
-    remote_src: no
+    remote_src: false
     src: daemon.json
     dest: /etc/docker/
     mode: 0664
@@ -75,9 +76,9 @@
 - name: Habilitar serviço docker
   systemd:
     name: docker
-    daemon_reload: no
+    daemon_reload: false
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Adicionando a chave do apt para o Kubernetes
   apt_key:
@@ -95,7 +96,7 @@
   apt:
     name: "{{ pacotes }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     pacotes:
       - kubelet
