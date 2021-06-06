@@ -12,7 +12,7 @@ variable "common_tags" {
   }
 }
 
-variable "SSH_PUBKEY" {
+variable "ssh_pubkey" {
   description = "Chave pública para conexão SSH"
   type        = string
 }

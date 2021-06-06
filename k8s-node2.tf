@@ -37,7 +37,7 @@ resource "azurerm_linux_virtual_machine" "k8s_node2_vm" {
 
   admin_ssh_key {
     username   = "ubuntu"
-    public_key = var.SSH_PUBKEY
+    public_key = var.ssh_pubkey
   }
 
   os_disk {
