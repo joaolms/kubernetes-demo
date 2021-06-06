@@ -1,23 +1,23 @@
 ---
 - hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
   remote_user: ubuntu
 
   roles:
   - k8s_common
 
 - hosts: master
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
   remote_user: ubuntu
 
   roles:
   - k8s_master
 
 - hosts: nodes
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
   remote_user: ubuntu
 
   roles:

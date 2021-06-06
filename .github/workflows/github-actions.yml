@@ -1,7 +1,6 @@
-name: Kubernetes Demo - Azure
+name: Kubernetes Demo on Azure
 on:
   - push
-  - pull_request
 
 jobs:
   testes:
@@ -9,10 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Check out
-        uses: actions/checkout@v2
+    - name: Check out
+      uses: actions/checkout@v2
+  
+    - name: Ansible lint
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "k8s-playbook.yml"
+  
+    - name: Terraform init
+      run: terraform init --upgrade=true
     
-      - name: Ansible lint
-        uses: ansible/ansible-lint-action@master
-        with:
-          targets: "k8s-playbook.yml"
+    - name: Terraform validate
+      run: terraform validate
+    
+    - name: Terraform plan
+      run: terraform plan
