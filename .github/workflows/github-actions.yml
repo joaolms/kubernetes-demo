@@ -3,43 +3,27 @@ on:
   - push
 
 jobs:
-  testes:
-    
+  testes:   
     runs-on: ubuntu-latest
-    
+    env:
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      TF_VAR_ssh_pubkey: ${{ secrets.TF_VAR_SSH_PUBKEY }}
+
     steps:
-    # - name: Check out
-    #   uses: actions/checkout@v2
+
+    - name: Check out
+      uses: actions/checkout@v2
   
-    # - name: Ansible lint
-    #   uses: ansible/ansible-lint-action@master
-    #   with:
-    #     targets: "k8s-playbook.yml"
+    - name: Ansible lint
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "k8s-playbook.yml"
 
-    - name: instalando o ansible-lint
-      run: pip3 install "ansible-lint[yamllint]"
-
-    - name: teste de comandos
-      run: |
-        terraform -version
-        docker --version
-        ansible --version
-        packer -version
-        ansible-lint --version
+    - name: Terraform validate
+      run: make tf-validate
     
-    - name: ansible-lint
-      run: |
-        ansible-lint --version
-        ansible-lint k8s-playbook.yml
-
-    # - name: Terraform validate
-    #   run: make tf-validate
-    
-    # - name: Terraform plan
-    #   run: make tf-plan
-    #   env:
-    #     ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-    #     ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-    #     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-    #     ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-    #     TF_VAR_ssh_pubkey: ${{ secrets.TF_VAR_SSH_PUBKEY }}
+    - name: Terraform plan
+      run: make tf-plan
