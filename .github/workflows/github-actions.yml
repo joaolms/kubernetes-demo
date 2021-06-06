@@ -18,14 +18,10 @@ jobs:
 
     - name: teste de comandos
       run: |
-        whereis terraform
-        whereis docker
-        whereis ansible
-        whereis packer
-        whereis kubectl
-        whereis make
-      # if: ${{ always() }}
-      
+        terraform -version
+        docker --version
+        ansible --version
+        packer -version      
      
     # - name: Terraform validate
     #   run: make tf-validate
