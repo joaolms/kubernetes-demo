@@ -31,3 +31,6 @@ override.tf.json
 
 # Extra variables files
 **/*tfvars
+
+# Outros
+hosts
